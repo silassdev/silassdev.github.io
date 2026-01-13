@@ -57,3 +57,59 @@ body.light .bar{ background:linear-gradient(90deg,#0ea5a4,#3abff8) }
   .controls{gap:.3rem}
   #main-nav[hidden=false]{display:flex; gap:1rem; flex-direction:column; padding:0.5rem}
 }
+
+.type-wrap{
+  display:inline-block;
+  position:relative;
+  width:22ch;            /* set to length of longest phrase (in ch) */
+  height:1.05em;
+  vertical-align:bottom;
+  overflow:hidden;
+}
+
+/* base styles for each phrase */
+.type-wrap .phrase{
+  position:absolute;
+  left:0; top:0;
+  overflow:hidden;
+  white-space:nowrap;
+  border-right:.12em solid var(--accent);
+  width:0ch;
+  animation: phraseCycle 9s steps(22,end) infinite;
+}
+
+/* staggered start times so phrases sequence */
+.type-wrap .phrase:nth-child(1){ animation-delay: 0s  }
+.type-wrap .phrase:nth-child(2){ animation-delay: 3s  }
+.type-wrap .phrase:nth-child(3){ animation-delay: 6s  }
+
+/* keyframes: type (0→20%), hold (20→60%), erase (60→100%) */
+@keyframes phraseCycle{
+  0%   { width: 0ch }
+  20%  { width: 100% }
+  60%  { width: 100% }
+  100% { width: 0ch }
+}
+
+/* separate blinking cursor (keeps cursor visible across phrases) */
+.type-wrap::after{
+  content: "";
+  position:absolute;
+  right:0; top:0;
+  width:.12em; height:1em;
+  background:var(--accent);
+  animation: blink-cursor .75s step-end infinite;
+}
+@keyframes blink-cursor{ 50% { opacity: 0 } }
+
+@media (prefers-reduced-motion: reduce){
+  .type-wrap .phrase, .type-wrap::after { animation: none; width:auto; background: transparent; border-right:none }
+}
+
+/* visually-hidden utility */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
