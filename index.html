@@ -1,22 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Silas — Developer Portfolio</title>
-  <link rel="stylesheet" href="styles.css"/>
-  <meta name="description" content="Silas Tyokaha — frontend developer. Portfolio and skills."/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Silas Tyokaha — Developer Portfolio</title>
+  <meta name="description" content="Silas Tyokaha — frontend developer. Portfolio and skills." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header container">
     <a class="brand" href="#">Silas</a>
 
-    <div class="controls">
-      <button id="theme-toggle" aria-pressed="false" title="Toggle theme">Theme</button>
-      <button id="menu-toggle" aria-expanded="false" aria-controls="main-nav">Menu</button>
+    <div class="header-controls">
+      <button id="theme-toggle" class="icon-btn" aria-pressed="false" title="Toggle theme">Theme</button>
+      <button id="menu-toggle" class="icon-btn" aria-expanded="false" aria-controls="main-nav" title="Toggle menu">Menu</button>
     </div>
 
-    <nav id="main-nav" class="nav" hidden>
+    <nav id="main-nav" class="main-nav" hidden>
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
@@ -25,76 +25,162 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="hero-inner">
-        <h1>Silas Tyokaha</h1>
-        <h1>I build <span class="type-wrap" aria-hidden="true">
-  <span class="phrase">fast interfaces</span>
-  <span class="phrase">accessible UI</span>
-  <span class="phrase">maintainable code</span>
-</span></h1>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner container">
+        <div class="hero-copy">
+          <h1>Silas Tyokaha</h1>
+          <p class="lead">Frontend developer · Laravel · TypeScript · React</p>
 
-<!-- screen-reader friendly fallback (optional) -->
-<p class="sr-only" aria-live="polite">fast interfaces, accessible UI, maintainable code</p>
-      </div>
-      <div class="hero-card" aria-hidden="true">
-        <pre>// simple, fast, maintainable UI</pre>
+          <p class="subtitle">I build <span class="type-wrap" aria-hidden="true">
+            <span class="phrase">fast interfaces</span>
+            <span class="phrase">accessible UI</span>
+            <span class="phrase">maintainable code</span>
+          </span></p>
+
+          <div class="hero-ctas">
+            <a class="btn primary" href="#projects">View projects</a>
+            <a class="btn ghost" href="#contact">Contact</a>
+            <a class="btn ghost" href="/resume.pdf" download>Resume</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <!-- decorative SVG -->
+          <svg viewBox="0 0 600 600" class="blob" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#1fd9b6"/>
+                <stop offset="1" stop-color="#3ad6ff"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#g1)" d="M433,338Q397,426,318,453Q239,480,156,443Q73,406,79,314Q85,222,147,163Q209,104,300,103Q391,102,444,165Q497,228,433,338Z"/>
+          </svg>
+        </div>
       </div>
     </section>
 
-    <section id="about" class="section reveal">
+    <!-- ABOUT -->
+    <section id="about" class="section reveal container">
       <h2>About</h2>
-      <p>I build frontends with TypeScript, React patterns and integrate with Laravel backends. I focus on performance and accessibility.</p>
+      <p>I build concise, maintainable frontends and integrate them with Laravel backends. I focus on performance, accessibility and clean architecture.</p>
     </section>
 
-    <section id="skills" class="section reveal">
-      <div class="section-head">
-        <h2>Skills</h2>
-      </div>
-      <div id="skills-grid" class="skills-grid" aria-live="polite">
-        <!-- populated by scripts.js -->
+    <!-- SKILLS -->
+    <section id="skills" class="section reveal container">
+      <h2>Skills</h2>
+      <div class="skills-grid" aria-live="polite">
+        <!-- static example skill cards (edit later or generate from JSON) -->
+        <div class="skill">
+          <div><h4>HTML & CSS</h4><div class="meta">Responsive layouts, accessibility</div></div>
+          <div><div class="progress"><div class="bar" style="width:92%"></div></div></div>
+        </div>
+        <div class="skill">
+          <div><h4>JavaScript (ES6+)</h4><div class="meta">Vanilla, DOM, async</div></div>
+          <div><div class="progress"><div class="bar" style="width:88%"></div></div></div>
+        </div>
+        <div class="skill">
+          <div><h4>TypeScript</h4><div class="meta">Typed frontend</div></div>
+          <div><div class="progress"><div class="bar" style="width:78%"></div></div></div>
+        </div>
       </div>
     </section>
 
-    <section id="projects" class="section reveal">
+    <!-- PROJECTS -->
+    <section id="projects" class="section reveal container">
       <div class="section-head">
         <h2>Projects</h2>
         <div class="filters" role="tablist" aria-label="Project filters">
-          <button class="filter-btn" data-filter="all" role="tab" aria-selected="true">All</button>
-          <button class="filter-btn" data-filter="frontend" role="tab">Frontend</button>
-          <button class="filter-btn" data-filter="laravel" role="tab">Laravel</button>
+          <button class="filter-btn" data-filter="all" aria-selected="true">All</button>
+          <button class="filter-btn" data-filter="frontend">Frontend</button>
+          <button class="filter-btn" data-filter="laravel">Laravel</button>
         </div>
       </div>
 
       <div class="projects-grid">
         <article class="project" data-tags="frontend">
+          <img src="https://via.placeholder.com/640x360.png?text=Apltoday" alt="Apltoday screenshot" loading="lazy" />
           <h3>Apltoday</h3>
-          <p>Sports blog with custom front-end and CMS integrations.</p>
+          <p>Sports blog — custom frontend, optimised for performance and SEO.</p>
+          <p class="tags">frontend • blog</p>
         </article>
 
         <article class="project" data-tags="laravel,backend">
+          <img src="https://via.placeholder.com/640x360.png?text=Allpilar" alt="Allpilar screenshot" loading="lazy" />
           <h3>Allpilar</h3>
-          <p>Content site with server-side rendering and caching.</p>
+          <p>Content platform using Laravel for APIs, caching and simple CMS flows.</p>
+          <p class="tags">laravel • cms</p>
         </article>
 
         <article class="project" data-tags="frontend">
+          <img src="https://via.placeholder.com/640x360.png?text=UI+Kit" alt="UI Kit screenshot" loading="lazy" />
           <h3>UI Kit</h3>
-          <p>Reusable components and animations library.</p>
+          <p>Reusable components, tokens and micro-interactions used across projects.</p>
+          <p class="tags">frontend • design-system</p>
         </article>
       </div>
     </section>
 
-    <section id="contact" class="section reveal">
+    <!-- CONTACT -->
+    <section id="contact" class="section reveal container">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
       <p>GitHub: <a href="https://github.com/silassdev" target="_blank" rel="noopener">silassdev</a></p>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer container">
     <small>© Silas Tyokaha</small>
   </footer>
 
-  <script src="scripts.js" defer></script>
+  <!-- tiny inline script for theme + mobile menu + project filters + reveal: unobtrusive and minimal -->
+  <script>
+    (function () {
+      // theme toggle (persist)
+      const tBtn = document.getElementById('theme-toggle');
+      const root = document.documentElement;
+      const stored = localStorage.getItem('site-theme');
+      if (stored === 'light') root.classList.add('light');
+      if (tBtn) {
+        tBtn.addEventListener('click', () => {
+          const isLight = root.classList.toggle('light');
+          localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+          tBtn.setAttribute('aria-pressed', String(isLight));
+        });
+        tBtn.setAttribute('aria-pressed', String(root.classList.contains('light')));
+      }
+
+      // mobile menu
+      const menuBtn = document.getElementById('menu-toggle');
+      const nav = document.getElementById('main-nav');
+      if (menuBtn && nav) {
+        menuBtn.addEventListener('click', () => {
+          const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+          menuBtn.setAttribute('aria-expanded', String(!expanded));
+          nav.hidden = !nav.hidden;
+        });
+      }
+
+      // reveal on scroll
+      const reveals = document.querySelectorAll('.reveal');
+      const ro = new IntersectionObserver((entries, o) => {
+        entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('show'); o.unobserve(en.target); }});
+      }, {threshold:0.18});
+      reveals.forEach(r => ro.observe(r));
+
+      // project filters
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const projects = document.querySelectorAll('.project');
+      filterBtns.forEach(btn => btn.addEventListener('click', () => {
+        filterBtns.forEach(b=> b.setAttribute('aria-selected','false'));
+        btn.setAttribute('aria-selected','true');
+        const f = btn.dataset.filter;
+        projects.forEach(p => {
+          const tags = (p.dataset.tags || '').split(',').map(s=>s.trim());
+          p.style.display = (f === 'all' || tags.includes(f)) ? '' : 'none';
+        });
+      }));
+    })();
+  </script>
 </body>
 </html>
