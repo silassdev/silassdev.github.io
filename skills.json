@@ -1,7 +1,0 @@
-[
-  { "name": "HTML & CSS", "level": 92, "note": "Responsive layouts, accessibility" },
-  { "name": "JavaScript (ES6+)", "level": 88, "note": "Vanilla, DOM, async" },
-  { "name": "TypeScript", "level": 78, "note": "Typed frontend" },
-  { "name": "React", "level": 82, "note": "Hooks, router, components" },
-  { "name": "Laravel", "level": 80, "note": "API and backend integration" }
-]
