@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Silas Tyokaha — Frontend, Backend, Mobile, AI/ML tooling. Black & white developer portfolio." />
   <title>Silas Tyokaha — Developer</title>
+
   <link rel="stylesheet" href="styles.css" />
+
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>ST</text></svg>">
 </head>
 <body>
@@ -13,33 +15,36 @@
     <div class="container header-grid">
       <div>
         <h1 class="name">Silas Tyokaha</h1>
-        <p class="tagline">Frontend • Backend  • AI/ML tooling</p>
+        <p class="tagline">Frontend • Backend • Mobile • AI/ML tooling</p>
       </div>
       <nav class="nav">
         <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>
-        <a href="#about">About</a>
+        <a href="#about-top">About</a>
         <a href="#stack">Stack</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
   </header>
 
+  <!-- About at top (moved as requested) -->
+  <section id="about-top" class="about-top">
+    <div class="container">
+      <h2>About</h2>
+      <p class="about-lead">
+        I'm Silas Tyokaha — I build polished interfaces, reliable APIs, mobile apps and experiment with AI tooling and generative techniques.
+        My core stack is JavaScript and Laravel. I integrate AI and build robust, RESTful APIs while practicing DevOps, caching and performance optimizations to reduce memory use and improve scalability.
+        I'm currently learning C++.
+      </p>
+    </div>
+  </section>
+
   <main>
     <section class="hero container" aria-labelledby="hero-title">
       <div class="hero-left">
-        <h2 id="hero-title">Hola!</h2>
         <p class="lead">
-          I build polished interfaces, reliable APIs, web applications and experiment with AI tooling and generative techniques.
           Below is a quick overview of my journey, stack and tools.
         </p>
 
-        <div class="actions">
-          <label class="upload-btn">
-            Upload image
-            <input id="imageInput" type="file" accept="image/*" aria-label="Upload profile image (will be converted to black and white)">
-          </label>
-          <button id="downloadBtn" class="btn" disabled>Download B/W image</button>
-        </div>
 
         <div class="meta-grid">
           <div>
@@ -59,20 +64,10 @@
 
       <div class="hero-right" aria-hidden="false">
         <div class="image-frame" id="imageFrame">
-          <!-- Pre-rendered placeholder; replace or upload to see preview -->
           <canvas id="previewCanvas" width="600" height="400" aria-label="Black and white image preview"></canvas>
           <div class="image-fallback">No image. Upload to preview.</div>
         </div>
       </div>
-    </section>
-
-    <section id="about" class="section container">
-      <h3>About — my tech journey</h3>
-      <p>
-        I'm Silas Tyokaha — a developer focused on component-driven frontend work, robust backend systems, mobile apps, and AI-assisted tooling.
-        I build polished interfaces, reliable APIs, mobile apps and experiment with AI tooling and generative techniques.
-        My core stack is JavaScript and Laravel; I integrate AI and build robust, RESTful APIs while practicing DevOps, caching and performance optimizations to reduce memory use and improve scalability.
-      </p>
     </section>
 
     <section id="stack" class="section container">
@@ -87,7 +82,7 @@
             <span class="chip">PHP</span>
             <span class="chip">C++</span>
             <span class="chip">HTML & CSS</span>
-            <span class="chip">SQL (MySQL / MariaDB)</span>
+            <span class="chip">SQL</span>
             <span class="chip">Python</span>
             <span class="chip">Java</span>
           </div>
@@ -97,12 +92,10 @@
           <h4>Frameworks / Libraries</h4>
           <div class="chips">
             <span class="chip">React</span>
-            <span class="chip">Next.js (App Router)</span>
+            <span class="chip">Next.js </span>
             <span class="chip">Laravel (Blade + Livewire)</span>
             <span class="chip">React Native</span>
             <span class="chip">Tailwind CSS</span>
-            <span class="chip">Alpine.js</span>
-            <span class="chip">FastAPI</span>
             <span class="chip">Spring Boot</span>
           </div>
         </div>
@@ -111,7 +104,8 @@
           <h4>Databases</h4>
           <div class="chips">
             <span class="chip">MySQL</span>
-            <span class="chip">MariaDB</span>
+            <span class="chip">PostgreSQL</span>
+            <span class="chip">MongoDB</span>
           </div>
         </div>
 
@@ -148,16 +142,13 @@
     <section id="contact" class="section container footer-section">
       <h3>Contact</h3>
       <p>
-        Find my code and projects on <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>.
-        This page is designed for GitHub Pages — drop the files in your repo root or docs/ directory.
-      </p>
-      <p class="muted">Built in black & white — minimal, accessible, and focused on content.</p>
+        Find my code and projects on <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>.      </p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <small>© <span id="year"></span> Silas Tyokaha — <a href="https://silassdev.github.io/" target="_blank" rel="noopener">silassdev.github.io</a></small>
+      <small>© <span id="year"></span> Silas — <a href="https://silassdev.github.io/" target="_blank" rel="noopener">silassdev.github.io</a></small>
     </div>
   </footer>
 
