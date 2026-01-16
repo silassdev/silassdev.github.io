@@ -25,7 +25,6 @@
   </header>
 
   <main>
-    <!-- HERO -->
     <section class="hero">
       <div class="hero-inner container">
         <div class="hero-copy">
@@ -46,7 +45,6 @@
         </div>
 
         <div class="hero-visual" aria-hidden="true">
-          <!-- decorative SVG -->
           <svg viewBox="0 0 600 600" class="blob" role="img" aria-hidden="true">
             <defs>
               <linearGradient id="g1" x1="0" x2="1">
@@ -60,33 +58,24 @@
       </div>
     </section>
 
-    <!-- ABOUT -->
     <section id="about" class="section reveal container">
       <h2>About</h2>
       <p>I build concise, maintainable frontends and integrate them with Laravel backends. I focus on performance, accessibility and clean architecture.</p>
     </section>
 
-    <!-- SKILLS -->
     <section id="skills" class="section reveal container">
       <h2>Skills</h2>
-      <div class="skills-grid" aria-live="polite">
-        <!-- static example skill cards (edit later or generate from JSON) -->
-        <div class="skill">
-          <div><h4>HTML & CSS</h4><div class="meta">Responsive layouts, accessibility</div></div>
-          <div><div class="progress"><div class="bar" style="width:92%"></div></div></div>
-        </div>
-        <div class="skill">
-          <div><h4>JavaScript (ES6+)</h4><div class="meta">Vanilla, DOM, async</div></div>
-          <div><div class="progress"><div class="bar" style="width:88%"></div></div></div>
-        </div>
-        <div class="skill">
-          <div><h4>TypeScript</h4><div class="meta">Typed frontend</div></div>
-          <div><div class="progress"><div class="bar" style="width:78%"></div></div></div>
-        </div>
+      <div id="skills-grid" class="skills-grid" aria-live="polite">
+        <!-- populated by scripts.js (fallback shown in CSS-only copy if JS disabled) -->
+        <noscript>
+          <div class="skill">
+            <div><h4>HTML & CSS</h4><div class="meta">Responsive layouts, accessibility</div></div>
+            <div><div class="progress"><div class="bar" style="width:92%"></div></div></div>
+          </div>
+        </noscript>
       </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects" class="section reveal container">
       <div class="section-head">
         <h2>Projects</h2>
@@ -121,7 +110,6 @@
       </div>
     </section>
 
-    <!-- CONTACT -->
     <section id="contact" class="section reveal container">
       <h2>Contact</h2>
       <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a></p>
@@ -132,6 +120,7 @@
   <footer class="site-footer container">
     <small>© Silas Tyokaha</small>
   </footer>
-</body>
+
   <script src="scripts.js" defer></script>
+</body>
 </html>
