@@ -122,19 +122,15 @@ body{
   padding:8px 10px; border-radius:999px; background:#fff; border:1px solid var(--glass); font-weight:600; font-size:0.9rem;
 }
 
-/* concepts */
 .concept-list{margin:12px 0 0 0; padding-left:18px; color:var(--muted)}
 
-/* Footer */
 .footer-section{padding-bottom:36px}
 .site-footer{border-top:1px solid var(--glass); padding:16px 0; text-align:center; color:var(--muted)}
 
-/* small screens */
 @media(max-width:560px){
   .nav{display:none}
   .hero-right{order:2}
 }
 
-/* subtle entrance animation */
 .container > .hero, .section{animation:fadeIn 420ms ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
