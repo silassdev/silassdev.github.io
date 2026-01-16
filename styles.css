@@ -59,6 +59,20 @@ body{
 }
 .nav a:hover{text-decoration:underline}
 
+/* About top (prominent) */
+.about-top{
+  background:linear-gradient(180deg, rgba(0,0,0,0.02), transparent);
+  border-bottom:1px solid rgba(0,0,0,0.03);
+  padding:20px 0;
+}
+.about-top h2{margin:0 0 6px 0}
+.about-lead{
+  margin:0;
+  color:var(--muted);
+  font-size:1rem;
+  line-height:1.6;
+}
+
 /* Hero */
 .hero{
   display:grid;
@@ -122,15 +136,19 @@ body{
   padding:8px 10px; border-radius:999px; background:#fff; border:1px solid var(--glass); font-weight:600; font-size:0.9rem;
 }
 
+/* concepts */
 .concept-list{margin:12px 0 0 0; padding-left:18px; color:var(--muted)}
 
+/* Footer */
 .footer-section{padding-bottom:36px}
 .site-footer{border-top:1px solid var(--glass); padding:16px 0; text-align:center; color:var(--muted)}
 
+/* small screens */
 @media(max-width:560px){
   .nav{display:none}
   .hero-right{order:2}
 }
 
-.container > .hero, .section{animation:fadeIn 420ms ease both}
+/* subtle entrance animation */
+.container > .hero, .section, .about-top{animation:fadeIn 420ms ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
