@@ -1,189 +1,102 @@
-(function () {
-  'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  const input = document.getElementById('imageInput');
+  const canvas = document.getElementById('previewCanvas');
+  const ctx = canvas.getContext('2d');
+  const downloadBtn = document.getElementById('downloadBtn');
+  const yearSpan = document.getElementById('year');
 
-  const KEY_THEME = 'site-theme';
-  const root = document.documentElement;
+  yearSpan.textContent = new Date().getFullYear();
 
-  document.addEventListener('DOMContentLoaded', init);
+  // draw a simple placeholder on load (initial aesthetic)
+  function drawPlaceholder(){
+    const w = canvas.width = 1200;
+    const h = canvas.height = 800;
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0,0,w,h);
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 64px system-ui, Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Silas Tyokaha', w/2, h/2 - 16);
+    ctx.font = '24px system-ui, Arial';
+    ctx.fillText('Upload an image to convert to black & white', w/2, h/2 + 32);
+  }
+  drawPlaceholder();
 
-  function init() {
-    try {
-      initTheme();
-      initMenu();
-      initRevealObserver();
-      initSmoothScroll();
-      initProjectFilters();
-      loadSkills();
-    } catch (err) {
-      // Fail gracefully: log error but continue
-      // eslint-disable-next-line no-console
-      console.error('Init error', err);
+  // convert image data to grayscale in-place (luminosity method)
+  function convertToGrayscale(imageData){
+    const data = imageData.data;
+    for (let i = 0; i < data.length; i += 4) {
+      const r = data[i], g = data[i+1], b = data[i+2];
+      // luminosity formula
+      const v = Math.round(0.21 * r + 0.72 * g + 0.07 * b);
+      data[i] = data[i+1] = data[i+2] = v;
+      // keep alpha
     }
+    return imageData;
   }
 
-  /* THEME */
-  function initTheme() {
-    const btn = document.getElementById('theme-toggle');
-    try {
-      const stored = localStorage.getItem(KEY_THEME);
-      if (stored === 'light') root.classList.add('light');
-
-      if (btn) {
-        btn.addEventListener('click', () => {
-          const isLight = root.classList.toggle('light');
-          localStorage.setItem(KEY_THEME, isLight ? 'light' : 'dark');
-          btn.setAttribute('aria-pressed', String(isLight));
-        });
-        btn.setAttribute('aria-pressed', String(root.classList.contains('light')));
-      }
-    } catch (err) {
-      // localStorage may throw in some contexts (private mode)
-      // eslint-disable-next-line no-console
-      console.warn('Theme init warning', err);
-    }
+  function fitSize(img, maxW = 1200, maxH = 800){
+    const ratio = Math.min(maxW / img.width, maxH / img.height, 1);
+    return { width: Math.round(img.width * ratio), height: Math.round(img.height * ratio) };
   }
 
-  /* MOBILE MENU */
-  function initMenu() {
-    const menuBtn = document.getElementById('menu-toggle');
-    const nav = document.getElementById('main-nav');
-    if (!menuBtn || !nav) return;
+  function handleFile(file){
+    if (!file || !file.type.startsWith('image/')) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const img = new Image();
+      img.onload = () => {
+        const size = fitSize(img, 1200, 800);
+        canvas.width = size.width;
+        canvas.height = size.height;
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-    menuBtn.addEventListener('click', () => {
-      const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
-      menuBtn.setAttribute('aria-expanded', String(!expanded));
-      // toggle hidden attribute safely
-      nav.hidden = !nav.hidden;
-    });
-
-    // close menu when a nav link is clicked (mobile)
-    nav.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target && target.matches('a')) {
-        nav.hidden = true;
-        menuBtn.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  /* REVEAL ON SCROLL */
-  function initRevealObserver() {
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
-
-    const obs = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
+        try {
+          const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+          convertToGrayscale(imgData);
+          ctx.putImageData(imgData, 0, 0);
+          downloadBtn.disabled = false;
+        } catch (err) {
+          // cross-origin images may block getImageData
+          // fallback: use CSS filter by redrawing image and applying globalCompositeOperation
+          ctx.drawImage(img,0,0,canvas.width,canvas.height);
+          // apply CSS grayscale via globalCompositeOperation as a visual fallback (not perfect)
+          canvas.style.filter = 'grayscale(100%)';
+          downloadBtn.disabled = false;
         }
-      });
-    }, { threshold: 0.18 });
-
-    reveals.forEach(r => obs.observe(r));
+      };
+      img.onerror = () => alert('Unable to load image. Try another file.');
+      img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
   }
 
-  /* SMOOTH SCROLL */
-  function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        const href = this.getAttribute('href');
-        if (!href || href === '#') return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  }
+  input.addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    handleFile(file);
+  });
 
-  /* PROJECT FILTERS */
-  function initProjectFilters() {
-    const buttons = document.querySelectorAll('.filter-btn');
-    const projects = document.querySelectorAll('.project');
-    if (!buttons.length || !projects.length) return;
+  downloadBtn.addEventListener('click', () => {
+    // default to PNG
+    const url = canvas.toDataURL('image/png');
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'silas-image-bw.png';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  });
 
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        buttons.forEach(b => b.setAttribute('aria-selected', 'false'));
-        btn.setAttribute('aria-selected', 'true');
-
-        const filter = btn.dataset.filter || 'all';
-        projects.forEach(p => {
-          const tags = (p.dataset.tags || '').split(',').map(s => s.trim()).filter(Boolean);
-          const show = filter === 'all' || tags.includes(filter);
-          p.style.display = show ? '' : 'none';
-        });
-      });
-    });
-  }
-
-  /* LOAD SKILLS JSON + RENDER + ANIMATE */
-  async function loadSkills() {
-    const grid = document.getElementById('skills-grid');
-    if (!grid) return;
-
-    const fallback = [
-      { name: 'HTML & CSS', level: 92, note: 'Responsive layouts, accessibility' },
-      { name: 'JavaScript', level: 88, note: 'Vanilla & ES6+' },
-      { name: 'TypeScript', level: 78, note: 'Typed frontend' }
-    ];
-
-    let skills;
-    try {
-      const resp = await fetch('/skills.json', { cache: 'no-store' });
-      if (!resp.ok) throw new Error('fetch error');
-      skills = await resp.json();
-      if (!Array.isArray(skills) || !skills.length) throw new Error('invalid skills.json');
-    } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn('Could not load skills.json — using fallback', err);
-      skills = fallback;
+  // Accessibility: allow paste of image
+  window.addEventListener('paste', (e) => {
+    const items = e.clipboardData && e.clipboardData.items;
+    if (!items) return;
+    for (const it of items){
+      if (it.type && it.type.startsWith('image/')){
+        const file = it.getAsFile();
+        handleFile(file);
+        break;
+      }
     }
-
-    // render
-    grid.innerHTML = skills.map(s => skillCardMarkup(s)).join('\n');
-
-    // animate bars when visible
-    const bars = grid.querySelectorAll('.bar');
-    if (!bars.length) return;
-
-    const obs = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const level = parseInt(el.dataset.level, 10) || 0;
-          // clamp 0-100
-          const clamped = Math.max(0, Math.min(100, level));
-          requestAnimationFrame(() => { el.style.width = clamped + '%'; });
-          observer.unobserve(el);
-        }
-      });
-    }, { threshold: 0.25 });
-
-    bars.forEach(b => obs.observe(b));
-  }
-
-  function skillCardMarkup(s) {
-    const name = escapeHtml(s.name || '');
-    const note = escapeHtml(s.note || '');
-    const level = Number(s.level || 0);
-    return `
-      <div class="skill">
-        <div><h4>${name}</h4><div class="meta">${note}</div></div>
-        <div><div class="progress" aria-hidden="true"><div class="bar" data-level="${level}" style="width:0%"></div></div></div>
-      </div>
-    `;
-  }
-
-  /* small XSS-safe helper */
-  function escapeHtml(str = '') {
-    return String(str)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-})();
+  });
+});
