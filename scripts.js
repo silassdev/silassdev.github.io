@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   yearSpan.textContent = new Date().getFullYear();
 
-  // draw a simple placeholder on load (initial aesthetic)
   function drawPlaceholder(){
     const w = canvas.width = 1200;
     const h = canvas.height = 800;
@@ -57,10 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.putImageData(imgData, 0, 0);
           downloadBtn.disabled = false;
         } catch (err) {
-          // cross-origin images may block getImageData
-          // fallback: use CSS filter by redrawing image and applying globalCompositeOperation
           ctx.drawImage(img,0,0,canvas.width,canvas.height);
-          // apply CSS grayscale via globalCompositeOperation as a visual fallback (not perfect)
           canvas.style.filter = 'grayscale(100%)';
           downloadBtn.disabled = false;
         }
