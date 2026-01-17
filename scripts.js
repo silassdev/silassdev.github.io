@@ -1,6 +1,4 @@
-
 document.addEventListener('DOMContentLoaded', () => {
-  const PROFILE_PATH = 'silas.png';
   const input = document.getElementById('imageInput');
   const canvas = document.getElementById('previewCanvas');
   const ctx = canvas.getContext('2d');
@@ -11,11 +9,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   yearSpan.textContent = new Date().getFullYear();
 
+  // try to make children align to the top of the frame (helps when parent is flex)
+  // don't override display type (in case CSS relies on it) — just set alignment properties
+  imageFrame.style.alignItems = 'flex-start';
+  imageFrame.style.justifyContent = 'flex-start';
+
   // draw a simple placeholder on load (initial aesthetic)
   function drawPlaceholder(){
     const w = canvas.width = 1200;
     const h = canvas.height = 800;
-    canvas.style.display = ''; // ensure visible
+    // ensure visible and avoid baseline alignment issues
+    canvas.style.display = 'block';
+    canvas.style.verticalAlign = 'top';
     ctx.fillStyle = '#fff';
     ctx.fillRect(0,0,w,h);
     ctx.fillStyle = '#000';
@@ -55,7 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const size = fitSize(img, 1200, 800);
     canvas.width = size.width;
     canvas.height = size.height;
-    canvas.style.display = '';
+    // ensure canvas is displayed as block and aligned to top
+    canvas.style.display = 'block';
+    canvas.style.verticalAlign = 'top';
     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
     try {
@@ -78,6 +85,9 @@ document.addEventListener('DOMContentLoaded', () => {
       fallbackImg.style.width = '100%';
       fallbackImg.style.height = 'auto';
       fallbackImg.style.filter = 'grayscale(100%)';
+      // make sure fallback image sits at the top as a block element
+      fallbackImg.style.display = 'block';
+      fallbackImg.style.verticalAlign = 'top';
       imageFrame.appendChild(fallbackImg);
 
       // Download disabled because we couldn't generate a non-tainted canvas image.
@@ -141,7 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
-
-  // Attempt to load silas.png from repo root
   loadAndConvertProfile();
 });
