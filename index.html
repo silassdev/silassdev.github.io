@@ -1,178 +1,539 @@
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <meta name="description" content="Silas Tyokaha — Frontend, Backend, AI/ML tooling. Minimal developer app-style portfolio." />
-  <title>Silas Tyokaha — Developer</title>  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3EST%3C/text%3E%3C/svg%3E">  <style>
-    :root{--max:980px;--gap:20px}
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0}
-    body{
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
-      color:#0b0b0b;background:#fff;padding:20px;line-height:1.45;
+  <title>Silas Tyokaha — Developer</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3EST%3C/text%3E%3C/svg%3E">
+  <style>
+    :root {
+      --max: 1200px;
+      --gap: 24px;
+      --radius: 16px;
+      --radius-sm: 12px;
+      --primary: #111;
+      --secondary: #666;
+      --border: #e5e5e5;
+      --bg-panel: #fafafa;
+      --transition: 0.2s ease;
     }
 
-    .container{max-width:var(--max);margin:0 auto}
-    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
-    .brand{display:flex;flex-direction:column}
-    .brand .name{font-weight:700;font-size:18px}
-    .brand .role{font-size:13px;color:#444}
+    * { box-sizing: border-box; }
+    
+    html, body { 
+      height: 100%; 
+      margin: 0; 
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      color: var(--primary);
+      background: #fff;
+      line-height: 1.6;
+      font-size: 16px;
+    }
 
-    nav a{margin-left:14px;text-decoration:none;color:inherit;font-size:14px}
+    .container { 
+      max-width: var(--max); 
+      margin: 0 auto; 
+      padding: 20px;
+    }
 
-    /* App card */
-    .app{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start;margin-top:18px}
-    @media (max-width:900px){.app{grid-template-columns:1fr}}
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 0 32px;
+      flex-wrap: wrap;
+    }
 
-    .panel{border:1px solid #e6e6e6;border-radius:12px;padding:18px;background:#fff}
-    .headline{font-size:20px;margin:0 0 8px 0}
-    .sub{color:#555;font-size:14px;margin:0 0 12px 0}
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
 
-    /* app nav (left) */
-    .app-nav{display:flex;gap:8px;margin-bottom:12px}
-    .tab{padding:8px 12px;border-radius:8px;background:#fafafa;border:1px solid #eee;cursor:pointer;font-size:13px}
-    .tab[aria-selected="true"]{background:#111;color:#fff;border-color:#111}
+    .brand .name {
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
 
-    /* projects list */
-    .list{display:grid;gap:10px}
-    .item{padding:12px;border-radius:8px;border:1px solid #f0f0f0}
-    .item h4{margin:0 0 6px 0;font-size:15px}
-    .item p{margin:0;color:#444;font-size:13px}
+    .brand .role {
+      font-size: 15px;
+      color: var(--secondary);
+    }
 
-    /* aside quick info */
-    .aside-hero{text-align:center}
-    .aside-hero .logo{display:inline-block;border-radius:12px;border:1px solid #111;padding:18px;font-weight:700;font-size:22px}
-    .aside-hero p{margin:10px 0 0 0;color:#444;font-size:13px}
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
 
-    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-    .badge{border:1px solid #111;padding:6px 10px;border-radius:999px;font-size:13px}
+    nav a {
+      text-decoration: none;
+      color: var(--primary);
+      font-size: 15px;
+      font-weight: 500;
+      transition: opacity var(--transition);
+      position: relative;
+    }
 
-    footer{margin-top:26px;color:#666;font-size:13px}
+    nav a:hover {
+      opacity: 0.6;
+    }
 
-    /* small utilities */
-    a:focus{outline:3px solid rgba(0,0,0,0.06);outline-offset:3px}
-  </style></head>
+    /* Layout Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--gap);
+      align-items: start;
+    }
+
+    /* Panel */
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      background: #fff;
+      transition: box-shadow var(--transition);
+    }
+
+    .panel:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    }
+
+    .headline {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 24px 0;
+      letter-spacing: -0.02em;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      background: var(--bg-panel);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px 16px;
+      border-radius: 8px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--secondary);
+      transition: all var(--transition);
+    }
+
+    .tab[aria-selected="true"] {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .tab:hover:not([aria-selected="true"]) {
+      color: var(--primary);
+    }
+
+    /* Content sections */
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.01em;
+    }
+
+    .section-text {
+      margin: 0 0 24px 0;
+      color: var(--secondary);
+      line-height: 1.7;
+    }
+
+    /* Items grid */
+    .items {
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-panel);
+      border: 1px solid transparent;
+      transition: all var(--transition);
+    }
+
+    .item:hover {
+      border-color: var(--border);
+      background: #fff;
+    }
+
+    .item h4 {
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .item p {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Aside */
+    .aside-content {
+      position: sticky;
+      top: 20px;
+    }
+
+    .profile-card {
+      text-align: center;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .avatar {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #111 0%, #333 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .profile-card p {
+      margin: 0;
+      color: var(--secondary);
+      font-size: 14px;
+    }
+
+    /* Badges */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .badge {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--bg-panel);
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+    }
+
+    /* Links section */
+    .links-section {
+      padding-top: 24px;
+    }
+
+    .links-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 12px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .links-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 0;
+      transition: color var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .links-list a:hover {
+      color: var(--secondary);
+    }
+
+    .links-list a::before {
+      content: '→';
+      font-size: 16px;
+    }
+
+    /* Footer */
+    footer {
+      margin-top: 48px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+      color: var(--secondary);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .aside-content {
+        position: static;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px 0 24px;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: flex-start;
+        gap: 16px;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      .headline {
+        font-size: 24px;
+      }
+
+      .tabs {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab {
+        white-space: nowrap;
+        flex: 0 0 auto;
+        min-width: 100px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 16px;
+      }
+
+      .brand .name {
+        font-size: 20px;
+      }
+
+      .brand .role {
+        font-size: 14px;
+      }
+
+      nav {
+        gap: 12px;
+      }
+
+      nav a {
+        font-size: 14px;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .headline {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+        font-size: 24px;
+      }
+    }
+
+    /* Accessibility */
+    a:focus-visible,
+    button:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
 <body>
   <div class="container">
     <header>
       <div class="brand">
         <div class="name">Silas Tyokaha</div>
-        <div class="role">Web developer — Frontend · Backend · AI tooling</div>
-      </div><nav aria-label="Primary">
-    <a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a>
-    <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>
-    <a href="#contact">Contact</a>
-  </nav>
-</header>
-
-<main class="app">
-  <section class="panel" aria-labelledby="app-title">
-    <h2 id="app-title" class="headline">Developer</h2>
-
-    <div id="overview" class="app-panel" role="tabpanel">
-      <h3 style="margin:0 0 8px 0">What I build</h3>
-      <p style="margin:0 0 12px 0;color:#444">Production-ready frontends, reliable Laravel backends, RESTful APIs, and AI tooling that automates developer workflows. I focus on performance, maintainability and pragmatic architecture.</p>
-
-      <div style="display:grid;gap:10px">
-        <div class="item">
-          <h4>Core stack</h4>
-          <p>JavaScript (React/Next), TypeScript, Laravel (PHP), MySQL/Postgres</p>
-        </div>
-
-        <div class="item">
-          <h4>Focus areas</h4>
-          <p>API design, caching & optimization, CI/CD, LLM integrations, secure auth</p>
-        </div>
-
-        <div class="item">
-          <h4>Currently learning</h4>
-          <p>C++ and deeper systems/OOP concepts</p>
-        </div>
+        <div class="role">Web Developer — Frontend · Backend · AI Tooling</div>
       </div>
-    </div>
+      <nav aria-label="Primary">
+        <a href="https://allpilar.xyz" target="_blank" rel="noopener">Website</a>
+        <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-    <div id="projects" class="app-panel" role="tabpanel" hidden>
-      <h3 style="margin:0 0 8px 0">Projects (select highlights)</h3>
-      <div class="list" style="margin-top:8px">
-        <div class="item">
-          <h4>AllPilar Solutions</h4>
-          <p>Company site and service platform — fullstack (Laravel + React), deployment and performance setup.</p>
+    <main class="grid">
+      <section class="panel" aria-labelledby="app-title">
+        <h1 id="app-title" class="headline">Developer</h1>
+
+        <div class="tabs" role="tablist">
+          <button class="tab" role="tab" data-tab="overview" aria-selected="true">Overview</button>
+          <button class="tab" role="tab" data-tab="projects">Projects</button>
+          <button class="tab" role="tab" data-tab="contact">Contact</button>
         </div>
-        <div class="item">
-          <h4>Kickspoll</h4>
-          <p>Sports site focused on football and basketball, content-driven, optimized for organic traffic.</p>
+
+        <div id="overview" class="app-panel" role="tabpanel">
+          <h2 class="section-title">What I Build</h2>
+          <p class="section-text">
+            Production-ready frontends, reliable Laravel backends, RESTful APIs, and AI tooling that automates developer workflows. I focus on performance, maintainability, and pragmatic architecture.
+          </p>
+
+          <div class="items">
+            <div class="item">
+              <h4>Core Stack</h4>
+              <p>JavaScript (React/Next), TypeScript, Laravel (PHP), MySQL/Postgres</p>
+            </div>
+
+            <div class="item">
+              <h4>Focus Areas</h4>
+              <p>API design, caching & optimization, CI/CD, LLM integrations, secure auth</p>
+            </div>
+
+            <div class="item">
+              <h4>Currently Learning</h4>
+              <p>C++ and deeper systems/OOP concepts</p>
+            </div>
+          </div>
         </div>
-        <div class="item">
-          <h4>LMS & e-learning</h4>
-          <p>Learning management features: roles, certificates, uploads, and transactional email flows.</p>
+
+        <div id="projects" class="app-panel" role="tabpanel" hidden>
+          <h2 class="section-title">Select Highlights</h2>
+          <div class="items">
+            <div class="item">
+              <h4>AllPilar Solutions</h4>
+              <p>Company site and service platform — fullstack (Laravel + React), deployment and performance setup.</p>
+            </div>
+            <div class="item">
+              <h4>Kickspoll</h4>
+              <p>Sports site focused on football and basketball, content-driven, optimized for organic traffic.</p>
+            </div>
+            <div class="item">
+              <h4>LMS & E-Learning</h4>
+              <p>Learning management features: roles, certificates, uploads, and transactional email flows.</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
 
-    <div id="contact" class="app-panel" role="tabpanel" hidden>
-      <h3 style="margin:0 0 8px 0">Contact</h3>
-      <p style="margin:0 0 8px 0;color:#444">Find projects on: <a href="https://github.com/silassdev" target="_blank" rel="noopener">github.com/silassdev</a></p>
-      <p style="margin:0 0 8px 0;color:#444">Company/Work: <a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a></p>
-      <p style="margin:0">Email: use the contact form on allpilar.xyz or link via GitHub profile.</p>
-    </div>
+        <div id="contact" class="app-panel" role="tabpanel" hidden>
+          <h2 class="section-title">Get In Touch</h2>
+          <div class="items">
+            <div class="item">
+              <h4>GitHub</h4>
+              <p><a href="https://github.com/silassdev" target="_blank" rel="noopener">github.com/silassdev</a></p>
+            </div>
+            <div class="item">
+              <h4>Company/Work</h4>
+              <p><a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a></p>
+            </div>
+            <div class="item">
+              <h4>Email</h4>
+              <p>Use the contact form on allpilar.xyz or link via GitHub profile</p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-  </section>
+      <aside class="panel">
+        <div class="aside-content">
 
-  <aside class="panel" aria-labelledby="aside-title">
+          <div class="badges">
+            <div class="badge">JavaScript</div>
+            <div class="badge">Laravel</div>
+            <div class="badge">AI Tooling</div>
+            <div class="badge">React</div>
+          </div>
 
-    <div class="meta" aria-hidden="false">
-      <div class="badge">JavaScript</div>
-      <div class="badge">Laravel</div>
-      <div class="badge">AI tooling</div>
-    </div>
+          <div class="links-section">
+            <h3 class="links-title">Quick Links</h3>
+            <div class="links-list">
+              <a href="https://allpilar.xyz" target="_blank" rel="noopener">AllPilar Solutions</a>
+              <a href="https://silassdev.github.io/" target="_blank" rel="noopener">Portfolio</a>
+              <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub Profile</a>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </main>
 
-    <div style="margin-top:14px">
-      <strong style="font-size:13px">Quick links</strong>
-      <div style="margin-top:8px;font-size:13px">
-        <div><a href="https://allpilar.xyz" target="_blank" rel="noopener">Company — allpilar.xyz</a></div>
-        <div><a href="https://silassdev.github.io/" target="_blank" rel="noopener">Portfolio</a></div>
-        <div><a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a></div>
-      </div>
-    </div>
-  </aside>
-</main>
+    <footer>
+      <small>© <span id="year"></span> Silas T.</small>
+    </footer>
+  </div>
 
-<footer>
-  <small>© <span id="year"></span> Silas</small>
-</footer>
-
-  </div>  <script>
+  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // tabs: accessible, simple
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.app-panel');
 
-    function selectTab(tab){
-      tabs.forEach(t => { t.setAttribute('aria-selected','false'); });
-      tab.setAttribute('aria-selected','true');
+    function selectTab(tab) {
+      tabs.forEach(t => t.setAttribute('aria-selected', 'false'));
+      tab.setAttribute('aria-selected', 'true');
 
       panels.forEach(p => p.hidden = true);
       const id = tab.dataset.tab;
       const panel = document.getElementById(id);
-      if(panel) panel.hidden = false;
-      panel?.focus();
+      if (panel) {
+        panel.hidden = false;
+        panel.focus();
+      }
     }
 
     tabs.forEach(t => {
       t.addEventListener('click', () => selectTab(t));
       t.addEventListener('keydown', e => {
-        if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
           const idx = Array.from(tabs).indexOf(t);
-          const next = e.key === 'ArrowRight' ? (idx+1)%tabs.length : (idx-1+tabs.length)%tabs.length;
+          const next = e.key === 'ArrowRight' 
+            ? (idx + 1) % tabs.length 
+            : (idx - 1 + tabs.length) % tabs.length;
           tabs[next].focus();
+          selectTab(tabs[next]);
         }
       });
     });
 
-    // initial state
     selectTab(document.querySelector('.tab[aria-selected="true"]'));
-  </script></body>
+  </script>
+</body>
 </html>
