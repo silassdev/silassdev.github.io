@@ -4,158 +4,186 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Silas Tyokaha — Frontend, Backend, Mobile, AI/ML tooling. Black & white developer portfolio." />
+  <meta name="description" content="Silas Tyokaha — Frontend, Backend, AI/ML tooling. Minimal developer app-style portfolio." />
   <title>Silas Tyokaha — Developer</title>  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3EST%3C/text%3E%3C/svg%3E">  <style>
-    :root{--max:1000px}
+    :root{--max:980px;--gap:20px}
     *{box-sizing:border-box}
-    html,body{height:100%}
+    html,body{height:100%;margin:0}
     body{
-      margin:0;
-      font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
-      color:#0b0b0b;
-      background:#fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      padding:32px 20px;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Noto Sans",sans-serif;
+      color:#0b0b0b;background:#fff;padding:20px;line-height:1.45;
     }
+
     .container{max-width:var(--max);margin:0 auto}
-
-    header.site-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0}
     .brand{display:flex;flex-direction:column}
-    .brand .name{font-weight:700;font-size:20px;letter-spacing:0.02em}
-    .brand .role{font-size:12px;color:#444;margin-top:4px}
+    .brand .name{font-weight:700;font-size:18px}
+    .brand .role{font-size:13px;color:#444}
 
-    nav.nav{display:flex;gap:14px;align-items:center}
-    nav.nav a{color:inherit;text-decoration:none;font-size:14px}
+    nav a{margin-left:14px;text-decoration:none;color:inherit;font-size:14px}
 
-    .hero{display:grid;grid-template-columns:1fr 320px;gap:36px;align-items:start;margin-bottom:36px}
-    @media (max-width:900px){.hero{grid-template-columns:1fr;}}
+    /* App card */
+    .app{display:grid;grid-template-columns:1fr 360px;gap:24px;align-items:start;margin-top:18px}
+    @media (max-width:900px){.app{grid-template-columns:1fr}}
 
-    .hero-left h1{font-size:44px;margin:0 0 10px 0;letter-spacing:-0.02em}
-    .hero-left p.lead{margin:0 0 18px 0;color:#222}
+    .panel{border:1px solid #e6e6e6;border-radius:12px;padding:18px;background:#fff}
+    .headline{font-size:20px;margin:0 0 8px 0}
+    .sub{color:#555;font-size:14px;margin:0 0 12px 0}
 
-    .meta-grid{display:grid;grid-template-columns:repeat(1,1fr);gap:10px}
-    @media (min-width:720px){.meta-grid{grid-template-columns:repeat(3,1fr)}}
-    .meta-grid strong{display:block;margin-bottom:6px}
+    /* app nav (left) */
+    .app-nav{display:flex;gap:8px;margin-bottom:12px}
+    .tab{padding:8px 12px;border-radius:8px;background:#fafafa;border:1px solid #eee;cursor:pointer;font-size:13px}
+    .tab[aria-selected="true"]{background:#111;color:#fff;border-color:#111}
 
-    /* chips */
-    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .chip{border:1px solid #111;padding:6px 10px;border-radius:999px;font-size:13px}
+    /* projects list */
+    .list{display:grid;gap:10px}
+    .item{padding:12px;border-radius:8px;border:1px solid #f0f0f0}
+    .item h4{margin:0 0 6px 0;font-size:15px}
+    .item p{margin:0;color:#444;font-size:13px}
 
-    .section{padding:28px 0;border-top:1px solid #eee}
-    .section h3{margin:0 0 12px 0}
+    /* aside quick info */
+    .aside-hero{text-align:center}
+    .aside-hero .logo{display:inline-block;border-radius:12px;border:1px solid #111;padding:18px;font-weight:700;font-size:22px}
+    .aside-hero p{margin:10px 0 0 0;color:#444;font-size:13px}
 
-    .footer-section p{margin:0}
+    .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .badge{border:1px solid #111;padding:6px 10px;border-radius:999px;font-size:13px}
 
-    footer.site-footer{margin-top:40px;padding-top:22px;border-top:1px solid #eee;color:#444;font-size:13px}
+    footer{margin-top:26px;color:#666;font-size:13px}
 
-    /* minimalist vertical label for employer */
-    .employer{font-size:12px;color:#111;border:1px solid #111;padding:6px 10px;border-radius:6px;text-decoration:none}
-
-    /* subtle focus states */
-    a:focus{outline:3px solid rgba(0,0,0,0.08);outline-offset:2px}
+    /* small utilities */
+    a:focus{outline:3px solid rgba(0,0,0,0.06);outline-offset:3px}
   </style></head>
 <body>
   <div class="container">
-    <header class="site-header">
+    <header>
       <div class="brand">
         <div class="name">Silas Tyokaha</div>
-        <div class="role">Web developer — Frontend • Backend • AI/ML tooling</div>
-      </div><nav class="nav" aria-label="Primary">
-    <a class="employer" href="https://allpilar.xyz" target="_blank" rel="noopener">Web developer @ allpilar.xyz</a>
+        <div class="role">Web developer — Frontend · Backend · AI tooling</div>
+      </div><nav aria-label="Primary">
+    <a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a>
     <a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a>
-    <a href="#about">About</a>
-    <a href="#stack">Stack</a>
     <a href="#contact">Contact</a>
   </nav>
 </header>
 
-<main>
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-left">
-      <h1 id="hero-title">Minimal, focused web apps and APIs.</h1>
-      <p class="lead">I design and ship production-ready frontends, backend services and AI tooling. My work emphasizes performance, reliability and pragmatic architecture.</p>
+<main class="app">
+  <section class="panel" aria-labelledby="app-title">
+    <h2 id="app-title" class="headline">Developer App — Clear overview</h2>
+    <p class="sub">A compact, app-style portfolio that surfaces core info quickly. No images — text-first, mobile-first.</p>
 
-      <div class="meta-grid">
-        <div>
-          <strong>Core stack</strong>
-          <div>JavaScript (React/Next) • Laravel (PHP)</div>
-        </div>
-        <div>
-          <strong>Focus</strong>
-          <div>REST APIs • DevOps • Caching & optimization</div>
-        </div>
-        <div>
-          <strong>Learning</strong>
-          <div>C++ • Systems & OOP</div>
-        </div>
-      </div>
-
+    <div class="app-nav" role="tablist" aria-label="App sections">
+      <button class="tab" role="tab" aria-selected="true" data-tab="overview">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="projects">Projects</button>
+      <button class="tab" role="tab" aria-selected="false" data-tab="contact">Contact</button>
     </div>
 
-    <aside class="hero-right" aria-hidden="false">
-      <div style="border:1px solid #111;border-radius:12px;padding:18px;min-height:120px;display:flex;align-items:center;justify-content:center">
-        <div style="text-align:center">
-          <div style="font-weight:700;font-size:28px;letter-spacing:0.02em">ST</div>
-          <div style="font-size:13px;color:#555;margin-top:6px">No image — text-first portfolio</div>
+    <div id="overview" class="app-panel" role="tabpanel">
+      <h3 style="margin:0 0 8px 0">What I build</h3>
+      <p style="margin:0 0 12px 0;color:#444">Production-ready frontends, reliable Laravel backends, RESTful APIs, and AI tooling that automates developer workflows. I focus on performance, maintainability and pragmatic architecture.</p>
+
+      <div style="display:grid;gap:10px">
+        <div class="item">
+          <h4>Core stack</h4>
+          <p>JavaScript (React/Next), TypeScript, Laravel (PHP), MySQL/Postgres</p>
+        </div>
+
+        <div class="item">
+          <h4>Focus areas</h4>
+          <p>API design, caching & optimization, CI/CD, LLM integrations, secure auth</p>
+        </div>
+
+        <div class="item">
+          <h4>Currently learning</h4>
+          <p>C++ and deeper systems/OOP concepts</p>
         </div>
       </div>
-    </aside>
-  </section>
-
-  <section id="about" class="section">
-    <h3>About</h3>
-    <p>I build polished interfaces, reliable APIs and experiment with generative AI to automate workflows. I prioritize maintainable code, measurable performance gains and secure deployments.</p>
-  </section>
-
-  <section id="stack" class="section">
-    <h3>Stack & Languages</h3>
-    <div class="chips">
-      <span class="chip">JavaScript (ES6+)</span>
-      <span class="chip">TypeScript</span>
-      <span class="chip">React / Next.js</span>
-      <span class="chip">Laravel (PHP)</span>
-      <span class="chip">MySQL / PostgreSQL</span>
-      <span class="chip">Node.js</span>
-      <span class="chip">Tailwind CSS</span>
-      <span class="chip">OpenAI API</span>
     </div>
+
+    <div id="projects" class="app-panel" role="tabpanel" hidden>
+      <h3 style="margin:0 0 8px 0">Projects (select highlights)</h3>
+      <div class="list" style="margin-top:8px">
+        <div class="item">
+          <h4>AllPilar Solutions</h4>
+          <p>Company site and service platform — fullstack (Laravel + React), deployment and performance setup.</p>
+        </div>
+        <div class="item">
+          <h4>Kickspoll</h4>
+          <p>Sports site focused on football and basketball, content-driven, optimized for organic traffic.</p>
+        </div>
+        <div class="item">
+          <h4>LMS & e-learning</h4>
+          <p>Learning management features: roles, certificates, uploads, and transactional email flows.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="contact" class="app-panel" role="tabpanel" hidden>
+      <h3 style="margin:0 0 8px 0">Contact</h3>
+      <p style="margin:0 0 8px 0;color:#444">Find code and projects: <a href="https://github.com/silassdev" target="_blank" rel="noopener">github.com/silassdev</a></p>
+      <p style="margin:0 0 8px 0;color:#444">Company/Work: <a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a></p>
+      <p style="margin:0">Email: use the contact form on allpilar.xyz or link via GitHub profile.</p>
+    </div>
+
   </section>
 
-  <section id="concepts" class="section">
-    <h3>Core practices</h3>
-    <ul>
-      <li>RESTful design, role-based access and secure auth flows</li>
-      <li>Performance: page caching, server tuning, memory optimizations</li>
-      <li>CI/CD and deployment workflows</li>
-      <li>Testing, error handling and security best practices</li>
-      <li>LLM/AI integration patterns and prompt pipelines</li>
-    </ul>
-  </section>
+  <aside class="panel" aria-labelledby="aside-title">
+    <div class="aside-hero">
+      <div class="logo">ST</div>
+      <p style="margin-top:8px;color:#444">Text-first, minimal portfolio</p>
+    </div>
 
-  <section id="contact" class="section footer-section">
-    <h3>Contact</h3>
-    <p>Projects and code: <a href="https://github.com/silassdev" target="_blank" rel="noopener">github.com/silassdev</a></p>
-    <p>Company: <a href="https://allpilar.xyz" target="_blank" rel="noopener">allpilar.xyz</a></p>
-  </section>
+    <div class="meta" aria-hidden="false">
+      <div class="badge">JavaScript</div>
+      <div class="badge">Laravel</div>
+      <div class="badge">AI tooling</div>
+    </div>
+
+    <div style="margin-top:14px">
+      <strong style="font-size:13px">Quick links</strong>
+      <div style="margin-top:8px;font-size:13px">
+        <div><a href="https://allpilar.xyz" target="_blank" rel="noopener">Company — allpilar.xyz</a></div>
+        <div><a href="https://silassdev.github.io/" target="_blank" rel="noopener">Portfolio</a></div>
+        <div><a href="https://github.com/silassdev" target="_blank" rel="noopener">GitHub</a></div>
+      </div>
+    </div>
+  </aside>
 </main>
 
-<footer class="site-footer">
-  <small>© <span id="year"></span> Silas — <a href="https://silassdev.github.io/" target="_blank" rel="noopener">silassdev.github.io</a></small>
+<footer>
+  <small>© <span id="year"></span> Silas — minimal app-style portfolio</small>
 </footer>
 
   </div>  <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // smooth in-page navigation
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    // tabs: accessible, simple
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.app-panel');
+
+    function selectTab(tab){
+      tabs.forEach(t => { t.setAttribute('aria-selected','false'); });
+      tab.setAttribute('aria-selected','true');
+
+      panels.forEach(p => p.hidden = true);
+      const id = tab.dataset.tab;
+      const panel = document.getElementById(id);
+      if(panel) panel.hidden = false;
+      panel?.focus();
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => selectTab(t));
+      t.addEventListener('keydown', e => {
+        if(e.key === 'ArrowRight' || e.key === 'ArrowLeft'){
+          const idx = Array.from(tabs).indexOf(t);
+          const next = e.key === 'ArrowRight' ? (idx+1)%tabs.length : (idx-1+tabs.length)%tabs.length;
+          tabs[next].focus();
+        }
       });
     });
+
+    // initial state
+    selectTab(document.querySelector('.tab[aria-selected="true"]'));
   </script></body>
 </html>
